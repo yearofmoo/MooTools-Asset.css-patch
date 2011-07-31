@@ -1,0 +1,5 @@
+A working patch for MooTools 1.2 and 1.3 for the Asset.stylesheet to support the onload and onerror events
+
+Full explanation and demo found at
+
+http://yearofmoo.com/2011/07/mootools-asset-stylesheet-onload-event-patch/
