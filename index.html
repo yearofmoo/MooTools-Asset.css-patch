@@ -1,0 +1,48 @@
+<!DOCTYPE html> 
+<html lang="en"> 
+<head> 
+<title>TITLE</title> 
+<style type="text/css">
+  body {
+    background:white;
+  }
+  input,label {
+    font-size:2em;
+  }
+  input[type="text"] {
+    width:300px;
+    border:1px solid #ddd;
+  }
+  input {
+    display:block;
+  }
+</style>
+</head> 
+
+<body id="" class=""> 
+  <div id="wrapper">
+    <form id="assets-form">
+      <label for="input-asset">Enter a Stylesheet URL Somewhere: </label>
+      <input type="text" id="input-asset" value="./demo.css" />
+      <input type="submit" />
+    </form> 
+  </div>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/mootools/1.3.1/mootools-yui-compressed.js"></script>
+<script type="text/javascript" src="./more.js"></script>
+<script type="text/javascript" src="./Asset.stylesheet.js"></script>
+<script type="text/javascript">
+window.addEvent('domready',function() {
+  $('assets-form').addEvent('submit',function(event) {
+    event.stop();
+    var file = $('input-asset').get('value');
+    alert('loading file');
+    new Asset.stylesheet(file,{
+      onload : function() {
+        alert('loaded');
+      }
+    });
+  });
+});
+</script>
+</body>
+</html> 
