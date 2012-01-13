@@ -7,22 +7,14 @@ if(!Browser.ie && !Browser.opera) {
     options.type = 'text/css';
     options.rel = 'stylesheet';
 
-    var maxAttempts = 100;
-    if(options.maxAttempts != null) {
-      maxAttempts = options.maxAttempts;
-      delete options.maxAttempts;
-    }
-
     this.id = options.id;
     if(!this.id) {
-      this.id = options.id = 'Asset.stylesheet-'+(new Date().getTime());
+      this.id = options.id = 'Asset.stylesheet-'+$stamp();
     }
     this.element = new Element('link',options).inject(document.getElementsByTagName('head')[0]);
     var onload = options.onload || function() { };
-    var onerror = options.onerror || function() { };
 
-
-    var delay = 100, counter = 0;
+    var delay = 100;
     this.checker = (function() {
       clearInterval(this.timer);
 
@@ -33,10 +25,6 @@ if(!Browser.ie && !Browser.opera) {
         if(owner && owner.id == this.id) {
           onload();
           return;
-        }
-        counter++;
-        if(counter >= maxAttempts) {
-          onerror();
         }
       }
 
