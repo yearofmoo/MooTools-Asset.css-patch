@@ -6,17 +6,7 @@
   var maxTries = 50;
 
   var onReady = function(element,onload,onerror) {
-    var path = element.get('href');
     var file = element.sheet;
-
-    var isFromOrigin = !path.contains('//');
-    if(!isFromOrigin) {
-      var matches = path.match(/^(.+?:)\/\/(.+?)(:\d+)?(?:\/|\Z)/);
-      var protocol = matches[1].toLowerCase();
-      var hostname = matches[2].toLowerCase();
-      var port = matches[3] || '';
-      isFromOrigin = protocol == window.location.protocol && hostname == window.location.hostname.toLowerCase() && (window.location.port || '') == port;
-    }
 
     var pass;
     try {
@@ -27,7 +17,7 @@
       pass = true;
     }
 
-    if(pass) {
+    if(file && pass) {
       onload.apply(element);
     }
     else {
