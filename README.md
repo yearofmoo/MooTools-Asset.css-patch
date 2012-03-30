@@ -31,7 +31,7 @@ Asset.css('/path/to/file.css',{
 
 ### The Asset.css-patch **does not support** the following:
 
-- onerror event for a missing non local file that is not a 404 error (outside of the same origin policy)
+- **onerror** event for a missing non local file that is not a 404 error (outside of the same origin policy)
 
 
 ### A Few Things to keep in mind:
