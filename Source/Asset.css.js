@@ -27,7 +27,14 @@ if(!Browser.ie && !Browser.opera) {
 
     var onload = options.onload || options.onLoad || function() { };
     var onerror = options.onerror || options.onError || function() { };
-    var isFromOrigin = !path.contains('://') || path.match(/^.+?:\/\/(.+?)(?:\/|\Z)/)[0].toLowerCase() == window.location.hostname.toLowerCase();
+    var isFromOrigin = !path.contains('//');
+    if(!isFromOrigin) {
+      var matches = path.match(/^(.+?:)\/\/(.+?)(:\d+)?(?:\/|\Z)/);
+      var protocol = matches[1].toLowerCase();
+      var hostname = matches[2].toLowerCase();
+      var port = matches[3] || '';
+      isFromOrigin = protocol == window.location.protocol && hostname == window.location.hostname.toLowerCase() && (window.location.port || '') == port;
+    }
 
     var id = options.id;
     if(!id) {
