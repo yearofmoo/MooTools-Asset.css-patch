@@ -1,13 +1,19 @@
 # MooTools - Asset.css-patch
 
-This plugin is a working patch for MooTools 1.2 and 1.3 for the Asset.stylesheet to support the **onLoad** and **onError** events.
+This plugin is a working patch for MooTools 1.2 and 1.3 for the Asset.css to support the **onload** and **onerror** events when downloading css assets.
 
-IE and Opera both natively support onload and onerror events, so this patch is for the remaining browsers.
+The existing MooTools code doesn't fully support the onload and onerror events for all browsers. This plugins fixes just that.
 
 ## Requirements
 
 - MooTools Core 1.2+ (1.3+ works as well)
-- MooTools More (Assets)
+- MooTools More (Assets specifically)
+
+## Browser Support
+
+- Works with all browsers.
+- Firefox doesn't support the onerror event for a missing css file that is outside the same origin policy
+- Opera and IE use timed intervals to check for the onerror event so they may be a bit slower
 
 ## Usage
 
@@ -31,11 +37,10 @@ Asset.css('/path/to/file.css',{
 
 ### The Asset.css-patch **does not support** the following:
 
-- **onerror** event for a missing non local file that is not a 404 error (outside of the same origin policy)
+- **onerror** event for a missing non local file that is **not a 404 error** (outside of the same origin policy)
 
 
 ### A Few Things to keep in mind:
 
 - In the event that a missing css file is downloaded outside of the same origin policy, the Asset.css script will still fire onload().
 - After 100 tries of a 100ms delay (which is 10 seconds) the polling script will fail and will fire the onerror() event.
-- Opera doesn't support the onerror event and doesn't natively recognize when it has downloaded a failed stylesheet, therefore a timeout of five seconds is run. If it takes longer than five seconds to download the stylesheet then it will fire the onError() event (Opera and IE only).
