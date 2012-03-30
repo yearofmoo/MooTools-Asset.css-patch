@@ -6,7 +6,6 @@
   var maxTries = 50;
 
   var onReady = function(element,onload,onerror) {
-    var pass = true;
     var path = element.get('href');
     var file = element.sheet;
 
@@ -19,11 +18,14 @@
       isFromOrigin = protocol == window.location.protocol && hostname == window.location.hostname.toLowerCase() && (window.location.port || '') == port;
     }
 
+    var pass;
     try {
       var rules = file.cssRules ? 'cssRules' : 'rules';
       pass = !(file[rules].length == 0);
     }
-    catch(e) { }
+    catch(e) {
+      pass = true;
+    }
 
     if(pass) {
       onload.apply(element);
@@ -37,15 +39,7 @@
 
     Asset.css = function(path,options) {
 
-      if((typeOf || $type)(options) == 'function') {
-        options = {
-          onload : options
-        }
-      }
-      else {
-        options = options || {};
-      }
-
+      options = options || {};
       options.href = path;
       options.type = 'text/css';
       options.rel = 'stylesheet';
