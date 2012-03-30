@@ -38,3 +38,4 @@ Asset.css('/path/to/file.css',{
 
 - In the event that a missing css file is downloaded outside of the same origin policy, the Asset.css script will still fire onload().
 - After 100 tries of a 100ms delay (which is 10 seconds) the polling script will fail and will fire the onerror() event.
+- Opera doesn't support the onerror event and doesn't natively recognize when it has downloaded a failed stylesheet, therefore a timeout of five seconds is run. If it takes longer than five seconds to download the stylesheet then it will fire the onError() event (Opera and IE only).
