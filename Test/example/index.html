@@ -28,7 +28,7 @@ window.addEvent('domready',function() {
   $('load').addEvent('click',function(event) {
     event.stop();
     var random = Number.random(1,1000);
-    new Asset.css('http://local.host/plugins.yearofmoo.com/MooTools-Asset.css-patch/Test/example/file.css?' + random,{
+    new Asset.css('http://plugins//file.css?' + random,{
       onError : function() {
         alert('error');
       },
