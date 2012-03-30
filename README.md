@@ -39,8 +39,9 @@ Asset.css('/path/to/file.css',{
 
 - **onerror** event for a missing non local file that is **not a 404 error** (outside of the same origin policy)
 
+More than likely, you will not be downloading any CSS files outside of the same origin policy (unless if its from a static files server under a different domain/subdomain). If that's the case then so long the asset exists on the server and/or there is no custom 404 HTML page for when its not found then you're fine.
 
-### A Few Things to keep in mind:
+## A Few Things to keep in mind:
 
 - In the event that a missing css file is downloaded outside of the same origin policy, the Asset.css script will still fire onload().
 - After 100 tries of a 100ms delay (which is 10 seconds) the polling script will fail and will fire the onerror() event.
