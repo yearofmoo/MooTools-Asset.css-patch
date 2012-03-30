@@ -27,11 +27,11 @@ Asset.css('/path/to/file.css',{
 - onload event for a local file (within the same origin)
 - onerror event for a missing local file (within the origin)
 - onload event for a missing non local file (outside of the same origin policy)
-
+- onerror detection for non local files **that result in a 404 error** (firefox does not support this)
 
 ### The Asset.css-patch **does not support** the following (this issue exists on firefox only):
 
-- onerror event for a missing non local file (outside of the same origin policy)
+- onerror event for a missing non local file that is not a 404 error (outside of the same origin policy)
 
 
 ### A Few Things to keep in mind:

@@ -38,7 +38,7 @@ if(!Browser.ie && !Browser.opera) {
 
     var id = options.id;
     if(!id) {
-      id = options.id = 'Asset.css-'+(new Date().getTime());
+      id = options.id = 'Asset.css-' + Number(0,1000) + '-' + (new Date().getTime());
     }
 
     this.element = new Element('link',options).inject(document.getElementsByTagName('head')[0]);
