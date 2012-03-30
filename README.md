@@ -23,7 +23,16 @@ Asset.css('/path/to/file.css',{
 # Almost 100%
 
 The Asset.css-patch supports the following:
-- Loading a local CSS file (within the origin)
+- onload event for a local file (within the same origin)
+- onerror event for a missing local file (within the origin)
+- onload event for a missing non local file (outside of the same origin policy)
+
+The Asset.css-patch **does not support** the following:
+- onerror event for a missing non local file (outside of the same origin policy)
+
+In the event that a missing css file is downloaded outside of the same origin policy, the Asset.css script will still fire onload().
+
+After 100 tries of a 100ms delay (which is 10 seconds) the polling script will fail and will fire the onerror() event.
 
 # More Info
 
