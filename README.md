@@ -6,7 +6,7 @@ IE and Opera both natively support onload and onerror events, so this patch is f
 
 ## Requirements
 
-- MooTools Core 1.2+
+- MooTools Core 1.2+ (1.3+ works as well)
 - MooTools More (Assets)
 
 ## Usage
@@ -24,10 +24,10 @@ Asset.css('/path/to/file.css',{
 
 ### The Asset.css-patch supports the following:
 
-- onload event for a local file (within the same origin)
-- onerror event for a missing local file (within the origin)
-- onload event for a missing non local file (outside of the same origin policy)
-- onerror detection for non local files **that result in a 404 error** (firefox does not support this)
+- **onload** event for a local file (within the same origin policy)
+- **onerror** event for a missing local file (within the same origin policy)
+- **onload** event for a missing non local file (outside of the same origin policy)
+- **onerror* detection for non local files (outside of the same origin policy) **that results in a 404 error** (firefox does not support this)
 
 ### The Asset.css-patch **does not support** the following:
 
