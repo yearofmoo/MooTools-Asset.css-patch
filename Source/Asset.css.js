@@ -2,11 +2,38 @@
 
   var isIE = Browser.ie || Browser.Engine.trident;
   var isOpera = Browser.opera || Browser.Engine.presto;
+  var delay = 100;
+  var maxTries = 50;
+
+  var onReady = function(element,onload,onerror) {
+    var pass = true;
+    var path = element.get('href');
+    var file = element.sheet;
+
+    var isFromOrigin = !path.contains('//');
+    if(!isFromOrigin) {
+      var matches = path.match(/^(.+?:)\/\/(.+?)(:\d+)?(?:\/|\Z)/);
+      var protocol = matches[1].toLowerCase();
+      var hostname = matches[2].toLowerCase();
+      var port = matches[3] || '';
+      isFromOrigin = protocol == window.location.protocol && hostname == window.location.hostname.toLowerCase() && (window.location.port || '') == port;
+    }
+
+    try {
+      var rules = file.cssRules ? 'cssRules' : 'rules';
+      pass = !(file[rules].length == 0);
+    }
+    catch(e) { }
+
+    if(pass) {
+      onload.apply(element);
+    }
+    else {
+      onerror.apply(element);
+    }
+  };
 
   if(!isIE && !isOpera) {
-
-    var delay = 100;
-    var maxTries = 100;
 
     Asset.css = function(path,options) {
 
@@ -25,14 +52,6 @@
 
       var onload = options.onload || options.onLoad || function() { };
       var onerror = options.onerror || options.onError || function() { };
-      var isFromOrigin = !path.contains('//');
-      if(!isFromOrigin) {
-        var matches = path.match(/^(.+?:)\/\/(.+?)(:\d+)?(?:\/|\Z)/);
-        var protocol = matches[1].toLowerCase();
-        var hostname = matches[2].toLowerCase();
-        var port = matches[3] || '';
-        isFromOrigin = protocol == window.location.protocol && hostname == window.location.hostname.toLowerCase() && (window.location.port || '') == port;
-      }
 
       var id = options.id;
       if(!id) {
@@ -51,26 +70,7 @@
           var file = sheets[i];
           var owner = file.ownerNode ? file.ownerNode : file.owningElement;
           if(owner && owner.id == id) {
-            var pass = true;
-
-            if(isFromOrigin) {
-              var rules = file.cssRules ? 'cssRules' : 'rules';
-              pass = file[rules] && file[rules].length > 0;
-            }
-            else if(!Browser.firefox) {
-              var rules = file.cssRules ? 'cssRules' : 'rules';
-              try {
-                pass = !(file[rules].length == 0);
-              }
-              catch(e) { }
-            }
-
-           if(pass) {
-              onload.apply(this.element);
-            }
-            else {
-              onerror.apply(this.element);
-            }
+            onReady(this.element,onload,onerror);
             return;
           }
 
@@ -89,5 +89,20 @@
     }
 
   }
+  else {
+    Asset._css = Asset.css;
+    Asset.css = function(path,options) {
+      var onload = options.onload || options.onLoad || function() { };
+      var onerror = options.onerror || options.onError || function() { };
+      var timer = onerror.delay(delay * maxTries);
+      Asset._css(path,{
+        onload : function() {
+          clearTimeout(timer);
+          onReady(this,onload,onerror);
+        }
+      });
+    }
+  }
 
 })();
+
