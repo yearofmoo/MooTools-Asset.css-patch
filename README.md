@@ -29,7 +29,7 @@ Asset.css('/path/to/file.css',{
 - onload event for a missing non local file (outside of the same origin policy)
 
 
-### The Asset.css-patch **does not support** the following:
+### The Asset.css-patch **does not support** the following (this issue exists on firefox only):
 
 - onerror event for a missing non local file (outside of the same origin policy)
 

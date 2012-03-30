@@ -52,15 +52,26 @@ if(!Browser.ie && !Browser.opera) {
         var file = sheets[i];
         var owner = file.ownerNode ? file.ownerNode : file.owningElement;
         if(owner && owner.id == id) {
+          var pass = true;
+
           if(isFromOrigin) {
-            var rules = file.cssRules ? file.cssRules : file.rules;
-            if(!rules || rules.length == 0) {
-              onerror.apply(this.element);
-              return;
+            var rules = file.cssRules ? 'cssRules' : 'rules';
+            pass = file[rules] && file[rules].length > 0;
+          }
+          else if(!Browser.firefox) {
+            var rules = file.cssRules ? 'cssRules' : 'rules';
+            try {
+              pass = !(file[rules].length == 0);
             }
+            catch(e) { }
           }
 
-          onload.apply(this.element);
+         if(pass) {
+            onload.apply(this.element);
+          }
+          else {
+            onerror.apply(this.element);
+          }
           return;
         }
 
