@@ -4,12 +4,12 @@ This plugin is a working patch for MooTools 1.2 and 1.3 for the Asset.stylesheet
 
 IE and Opera both natively support onload and onerror events, so this patch is for the remaining browsers.
 
-# Requirements
+## Requirements
 
 - MooTools Core 1.2+
 - MooTools More (Assets)
 
-# Usage
+## Usage
 
 The tool itself doesn't change anything. Continue to use Asset.stylesheet as you would normally:
 
@@ -20,7 +20,7 @@ Asset.css('/path/to/file.css',{
 });
 ```
 
-# Almost 100%
+## Almost 100%
 
 The Asset.css-patch supports the following:
  * onload event for a local file (within the same origin)
@@ -34,7 +34,7 @@ A Few Things to keep in mind:
  * In the event that a missing css file is downloaded outside of the same origin policy, the Asset.css script will still fire onload().
  * After 100 tries of a 100ms delay (which is 10 seconds) the polling script will fail and will fire the onerror() event.
 
-# More Info
+## More Info
 
 Full explanation and demo found at
 
