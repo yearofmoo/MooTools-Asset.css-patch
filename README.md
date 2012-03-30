@@ -33,9 +33,3 @@ The Asset.css-patch **does not support** the following:
 A Few Things to keep in mind:
  * In the event that a missing css file is downloaded outside of the same origin policy, the Asset.css script will still fire onload().
  * After 100 tries of a 100ms delay (which is 10 seconds) the polling script will fail and will fire the onerror() event.
-
-## More Info
-
-Full explanation and demo found at
-
-http://yearofmoo.com/2011/07/mootools-asset-stylesheet-onload-event-patch/
