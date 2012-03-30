@@ -28,7 +28,7 @@ window.addEvent('domready',function() {
   $('load').addEvent('click',function(event) {
     event.stop();
     var random = Number.random(1,1000);
-    new Asset.css('http://plugins//file.css?' + random,{
+    new Asset.css('./file.css?' + random,{
       onError : function() {
         alert('error');
       },

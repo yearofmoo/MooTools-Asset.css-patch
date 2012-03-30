@@ -53,8 +53,8 @@ if(!Browser.ie && !Browser.opera) {
         var owner = file.ownerNode ? file.ownerNode : file.owningElement;
         if(owner && owner.id == id) {
           if(isFromOrigin) {
-            var rules = owner.cssRules ? owner.cssRules : owner.rules;
-            if(!owner[rules] || owner[rules].length == 0) {
+            var rules = file.cssRules ? file.cssRules : file.rules;
+            if(!rules || rules.length == 0) {
               onerror.apply(this.element);
               return;
             }
