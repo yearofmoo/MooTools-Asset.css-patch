@@ -1,7 +1,7 @@
 (function() {
 
-  var isIE = Browser.ie || Browser.Engine.trident;
-  var isOpera = Browser.opera || Browser.Engine.presto;
+  var isIE = Browser.Engine ? Browser.Engine.trident : Browser.ie;
+  var isOpera = Browser.Engine ? Browser.Engine.presto : Browser.opera;
   var delay = 100;
   var maxTries = 50;
 
